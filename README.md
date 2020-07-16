@@ -44,7 +44,7 @@ func ensureSpace(offset, p, v) (pn []int32, vn []int32) {
     // no more space left for a new entity? then grow ... 
     if offset + 1 >= len(p) {
        pn = soa.DefaultManager.Grow(p)
-       vn = soa.DefaultManager.grow(v)
+       vn = soa.DefaultManager.Grow(v)
     }
     return p, v
 }
