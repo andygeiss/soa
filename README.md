@@ -55,8 +55,8 @@ Thus, we pack the slices.
 
 ```go
 type World struct {
-	p []int32
-	v []int32
+    p []int32
+    v []int32
 }
 
 func saveWorld(w *World, filename string) (err error) {
