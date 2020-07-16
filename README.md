@@ -9,8 +9,8 @@ The primary motivation is easier manipulation with packed SIMD instructions.
 
 ##### Table of Contents
 
-- [Installation](README.md#installation)
 - [Features](README.md#features)
+- [Installation](README.md#installation)
 - [Usage](README.md#usage)
 
 ## Freatures
