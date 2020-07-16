@@ -61,20 +61,20 @@ type World struct {
 
 func saveWorld(w *World, filename string) (err error) {
     // open a new file
-	file, err := os.OpenFile(filename, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
-	if err != nil {
-		return err
+    file, err := os.OpenFile(filename, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
+    if err != nil {
+	return err
     }
     defer file.Close()
     // create packed world data
-	var tmp World
-	tmp.p = soa.DefaultManager.Pack(w.p).([]int32)
+    var tmp World
+    tmp.p = soa.DefaultManager.Pack(w.p).([]int32)
     tmp.v = soa.DefaultManager.Pack(w.v).([]int32)
     // encode data to JSON
-	if err := json.NewEncoder(file).Encode(&tmp); err != nil {
-		return err
-	}
-	return nil
+    if err := json.NewEncoder(file).Encode(&tmp); err != nil {
+	return err
+    }
+    return nil
 }
 ```
 
@@ -82,19 +82,19 @@ Next time we load the world from the file and unpack the data:
 
 ```go
 func loadWorld(filename string) (w *World, err error) {
-	// open a new file
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	// decode data from JSON
-	var tmp World
-	if err := json.NewDecoder(file).Decode(&tmp); err != nil {
-		return nil, err
-	}
-	tmp.p = soa.DefaultManager.Unpack(tmp.p).([]int32)
-	tmp.v = soa.DefaultManager.Unpack(tmp.v).([]int32)
-	return &tmp, nil
+    // open a new file
+    file, err := os.Open(filename)
+    if err != nil {
+	return nil, err
+    }
+    defer file.Close()
+    // decode data from JSON
+    var tmp World
+    if err := json.NewDecoder(file).Decode(&tmp); err != nil {
+	return nil, err
+    }
+    tmp.p = soa.DefaultManager.Unpack(tmp.p).([]int32)
+    tmp.v = soa.DefaultManager.Unpack(tmp.v).([]int32)
+    return &tmp, nil
 }
 ```
