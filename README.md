@@ -11,6 +11,7 @@ The primary motivation is easier manipulation with packed SIMD instructions.
 
 - [Features](README.md#features)
 - [Installation](README.md#installation)
+- [Benchmark](README.md#benchmark)
 - [Usage](README.md#usage)
     - [Allocate](README.md#allocate)
     - [Grow](README.md#grow)
@@ -29,6 +30,29 @@ The primary motivation is easier manipulation with packed SIMD instructions.
 ## Installation
 
     go get -u github.com/andygeiss/soa
+
+## Benchmark
+
+According to the following benchmark, the performance gain is between factor 3 for 64-bit and factor 6 for 32-bit by using SSE2.
+Theoretically, AVX would be able to double this increase:
+
+    go test -benchmem -run=^$ github.com/andygeiss/soa -bench ^(BenchmarkAddFloat32s|BenchmarkAddFloat64s|BenchmarkAddInt32s|BenchmarkAddInt64s)$
+
+    goos: linux
+    goarch: amd64
+    pkg: github.com/andygeiss/soa
+    BenchmarkAddFloat32s/Native-4         	 1806871	       614 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkAddFloat32s/Assembly_SSE-4   	10943130	       113 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkAddFloat64s/Native-4         	 3843424	       310 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkAddFloat64s/Assembly_SSE-4   	10939322	       109 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkAddInt32s/Native-4           	 1790896	       669 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkAddInt32s/Assembly_SSE-4     	 5618310	       217 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkAddInt64s/Native-4           	 1948944	       612 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkAddInt64s/Assembly_SSE-4     	11035382	       110 ns/op	       0 B/op	       0 allocs/op
+    Benchmark/Alloc-4                     	 1775888	       680 ns/op	    4160 B/op	       3 allocs/op
+    Benchmark/Grow-4                      	  583726	      1980 ns/op	   14464 B/op	       6 allocs/op
+    Benchmark/Pack-4                      	  105363	     11345 ns/op	      64 B/op	       2 allocs/op
+    Benchmark/Unpack-4                    	  732098	      1505 ns/op	    8320 B/op	       6 allocs/op
 
 ## Usage
 
