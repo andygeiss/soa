@@ -12,6 +12,11 @@ The primary motivation is easier manipulation with packed SIMD instructions.
 - [Features](README.md#features)
 - [Installation](README.md#installation)
 - [Usage](README.md#usage)
+    - [Allocate](README.md#allocate)
+    - [Grow](README.md#grow)
+    - [Pack](README.md#pack)
+    - [Unpack](README.md#unpack)
+    - [Add](README.md#add)
 
 ## Freatures
 
@@ -19,6 +24,7 @@ The primary motivation is easier manipulation with packed SIMD instructions.
 * **Grow** a slice of a given basic type to the next multiple of a page size.
 * **Pack** all non-zero (0) values of a slice without changing the order.
 * **Unpack** the values of a slice to the next multiple of a page.
+* **Add** two slices (float64) using SIMD instructions.
 
 ## Installation
 
@@ -26,6 +32,7 @@ The primary motivation is easier manipulation with packed SIMD instructions.
 
 ## Usage
 
+#### Allocate
 The following function creates new entities with a position (p) and velocity (v),
 which fits into one page size (ex. 4096 bytes on linux).
 
@@ -36,6 +43,8 @@ func createEntities() (p, v []int32) {
     return
 }
 ```
+
+#### Grow
 
 Next we want to ensure that we have enough space to add a new entity to the world, by using the following code. 
 
@@ -49,6 +58,8 @@ func ensureSpace(offset, p, v) (pn []int32, vn []int32) {
     return p, v
 }
 ```
+
+#### Pack
 
 For serialization we dont need to save unused / initialized zero values.
 Thus, we pack the slices.
@@ -78,6 +89,8 @@ func saveWorld(w *World, filename string) (err error) {
 }
 ```
 
+#### Unpack
+
 Next time we load the world from the file and unpack the data:
 
 ```go
@@ -96,5 +109,16 @@ func loadWorld(filename string) (w *World, err error) {
     tmp.p = soa.DefaultManager.Unpack(tmp.p).([]int32)
     tmp.v = soa.DefaultManager.Unpack(tmp.v).([]int32)
     return &tmp, nil
+}
+```
+
+#### Add
+
+Two slices of float64s which are equal in length (multiple of page size) could be easily added by using SSE2 (as an example).
+
+```go
+func moveEntities(pos, velocity float64[]) {
+    // add the position and velocity vectors together and overwrite the old positions.
+    soa.AddFloat64s(pos velocity, pos)
 }
 ```
