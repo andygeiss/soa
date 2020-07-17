@@ -3,7 +3,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/andygeiss/soa)](https://goreportcard.com/report/github.com/andygeiss/soa)
 
 Allocate, Grow, Pack or Unpack Golang slices of basic types to optimize memory access for Data-Driven design.
-The primary motivation is easier manipulation with packed SIMD instructions.
+The primary motivation is easier manipulation with packed SIMD instructions like SSE2.
 
 ![](soa.png)
 
@@ -143,6 +143,6 @@ Two slices of float64s which are equal in length (multiple of page size) could b
 ```go
 func moveEntities(pos, velocity float64[]) {
     // add the position and velocity vectors together and overwrite the old positions.
-    soa.AddFloat64s(pos velocity, pos)
+    soa.AddFloat64s(pos, velocity, pos)
 }
 ```
