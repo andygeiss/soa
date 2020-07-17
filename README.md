@@ -25,7 +25,7 @@ The primary motivation is easier manipulation with packed SIMD instructions like
 * **Grow** a slice of a given basic type to the next multiple of a page size.
 * **Pack** all non-zero (0) values of a slice without changing the order.
 * **Unpack** the values of a slice to the next multiple of a page.
-* **Add** two slices (float64) using SIMD instructions.
+* **Add** two slices using SIMD instructions.
 
 ## Installation
 
