@@ -119,6 +119,6 @@ Two slices of float64s which are equal in length (multiple of page size) could b
 ```go
 func moveEntities(pos, velocity float64[]) {
     // add the position and velocity vectors together and overwrite the old positions.
-    soa.AddFloat64s(pos velocity, pos)
+    soa.AddFloat64s(pos, velocity, pos)
 }
 ```
