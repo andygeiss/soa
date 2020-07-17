@@ -3,7 +3,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/andygeiss/soa)](https://goreportcard.com/report/github.com/andygeiss/soa)
 
 Allocate, Grow, Pack or Unpack Golang slices of basic types to optimize memory access for Data-Driven design.
-The primary motivation is easier manipulation with packed SIMD instructions.
+The primary motivation is easier manipulation with packed SIMD instructions like SSE2.
 
 ![](soa.png)
 
