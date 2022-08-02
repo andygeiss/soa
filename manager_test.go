@@ -5,7 +5,7 @@ import (
 	"testing"
 	"unsafe"
 
-	"github.com/andygeiss/assert"
+	"github.com/andygeiss/utils/assert"
 	"github.com/andygeiss/soa"
 )
 

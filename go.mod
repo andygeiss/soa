@@ -1,5 +1,5 @@
 module github.com/andygeiss/soa
 
-go 1.13
+go 1.18
 
-require github.com/andygeiss/assert v0.0.10
+require github.com/andygeiss/utils v0.1.1
